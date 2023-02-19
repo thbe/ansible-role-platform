@@ -1,0 +1,40 @@
+---
+# Install HP ProLiant DL380 G7 server management tools
+- name: Installation of HP ProLiant DL380 G7 packages for RHEL and clones for major release 8 and above
+  ansible.builtin.dnf:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ hp_dl380_g7_packages }}"
+  when:
+    - ansible_facts['os_family'] == "RedHat"
+    - ansible_facts['distribution_major_version']|int >= 8
+
+# Install HP ProLiant DL380 G7 firmware
+- name: Create directory for HP ProLiant DL380 G7 firmware
+  ansible.builtin.file:
+    path: "{{ role_directory }}/firmware"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+  when:
+    - ansible_facts['os_family'] == "RedHat"
+    - ansible_facts['distribution_major_version']|int >= 8
+
+- name: Download of HP ProLiant DL380 G7 firmware binaries for RHEL and clones for major release 8 and above
+  ansible.builtin.get_url:
+    url: "{{ item }}"
+    dest: "{{ role_directory }}/firmware"
+    mode: 0755
+  with_items: "{{ hp_dl380_g7_firmware }}"
+  when:
+    - ansible_facts['os_family'] == "RedHat"
+    - ansible_facts['distribution_major_version']|int >= 8
+
+- name: Extract iLO3 firmware
+  ansible.builtin.command:
+    cmd: "{{ role_directory }}/firmware/CP046328.scexe --unpack={{ role_directory }}/firmware/"
+    creates: "{{ role_directory }}/firmware/ilo3_194.bin"
+  when:
+    - ansible_facts['os_family'] == "RedHat"
+    - ansible_facts['distribution_major_version']|int >= 8

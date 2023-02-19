@@ -1,0 +1,19 @@
+---
+# Configure Grub boot parameters
+- name: Grub Boot - Set command line parameter
+  ansible.builtin.lineinfile:
+    path: /etc/selinux/config
+    regexp: "GRUB_CMDLINE_LINUX="
+    line: GRUB_CMDLINE_LINUX=\"rootdelay=300 console=tty1 console=ttyS0,115200n8 earlyprintk=ttyS0,115200 earlyprintk=ttyS0 net.ifnames=0 crash_kexec_post_notifiers=N network-config=disabled\"
+  notify: Rebuild Grub
+  when:
+    - ansible_facts['virtualization_type'] != "docker"
+
+- name: Grub Boot - Set terminal output parameter
+  ansible.builtin.lineinfile:
+    path: /etc/selinux/config
+    regexp: "GRUB_TERMINAL_OUTPUT"
+    line: GRUB_TERMINAL_OUTPUT=\"serial console\"
+  notify: Rebuild Grub
+  when:
+    - ansible_facts['virtualization_type'] != "docker"

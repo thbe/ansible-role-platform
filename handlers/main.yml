@@ -1,0 +1,12 @@
+---
+# handlers file for platform
+- name: Restart Azure Linux Client
+  ansible.builtin.service:
+    name: waagent.service
+    state: restarted
+
+- name: Rebuild Grub
+  ansible.builtin.command: "grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg"
+
+- name: Reload kernel parameters
+  ansible.builtin.command: "sysctl -p"

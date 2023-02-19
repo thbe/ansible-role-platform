@@ -1,0 +1,10 @@
+---
+- name: Converge
+  hosts: all
+  tasks:
+    - name: "Include thbe.common"
+      ansible.builtin.include_role:
+        name: "thbe.common"
+    - name: "Include thbe.platform"
+      ansible.builtin.include_role:
+        name: "thbe.platform"

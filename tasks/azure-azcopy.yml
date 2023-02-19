@@ -1,0 +1,16 @@
+---
+# Deploy AzCopy tool
+- name: Create base directory for AzCopy
+  ansible.builtin.file:
+    path: /opt/azure/azcopy
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Deploy AzCopy tool
+  ansible.builtin.unarchive:
+    src: https://aka.ms/downloadazcopy-v10-linux
+    dest: /opt/azure/azcopy
+    extra_opts: [--strip-component=1]
+    remote_src: true

@@ -1,0 +1,20 @@
+---
+# Deploy AzAcSnap tool
+- name: Create directory for AzAcSnap
+  ansible.builtin.file:
+    path: "{{ role_directory }}/azacsnap"
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Download AzAcSnap installer
+  ansible.builtin.get_url:
+    url: https://aka.ms/azacsnapinstaller
+    dest: "{{ role_directory }}/azacsnap/azacsnapinstaller"
+    mode: 0755
+
+# - name: Install AzAcSnap
+#   ansible.builtin.command:
+#     cmd: "{{ role_directory }}/azacsnap/azacsnapinstaller"
+#     creates: /home/azacsnap

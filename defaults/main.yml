@@ -1,0 +1,16 @@
+---
+# defaults file for platform
+role_directory: /opt/ansible/platform
+
+anf_storage: false
+
+hp_dl380_g7_packages:
+  - "https://downloads.linux.hpe.com/SDR/repo/spp-gen9/RedHat/8/x86_64/current/hp-health-10.93-307.4.rhel8.x86_64.rpm"
+  - "https://downloads.linux.hpe.com/SDR/repo/spp-gen9/RedHat/8/x86_64/current/hponcfg-5.6.0-0.x86_64.rpm"
+  - "https://downloads.linux.hpe.com/SDR/repo/spp-gen9/RedHat/8/x86_64/current/ssa-5.30-6.0.x86_64.rpm"
+  - "https://downloads.linux.hpe.com/SDR/repo/spp-gen9/RedHat/8/x86_64/current/ssacli-5.30-6.0.x86_64.rpm"
+  - "https://downloads.linux.hpe.com/SDR/repo/stk/RedHat/8/x86_64/current/hp-scripting-tools-11.60-7.rhel8.x86_64.rpm"
+  - "https://downloads.linux.hpe.com/SDR/repo/sum/RedHat/8/x86_64/current/sum-9.0.2-2.rhel8.x86_64.rpm"
+
+hp_dl380_g7_firmware:
+  - "https://downloads.hpe.com/pub/softlib2/software1/sc-linux-fw-ilo/p1573561412/v189986/CP046328.scexe"

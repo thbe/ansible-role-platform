@@ -1,0 +1,23 @@
+---
+- name: Check if swap partition exists
+  ansible.builtin.stat:
+    path: /dev/rootvg/swap
+  register: stat_result_swap
+
+- name: Create swap partition
+  community.general.filesystem:
+    dev: /dev/rootvg/swap
+    fstype: swap
+    state: present
+  when:
+    - stat_result_swap.stat.exists
+
+- name: Activate and persist swap partition
+  ansible.posix.mount:
+    name: none
+    src: /dev/rootvg/swap
+    fstype: swap
+    opts: sw
+    state: present
+  when:
+    - stat_result_swap.stat.exists

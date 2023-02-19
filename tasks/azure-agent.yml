@@ -1,0 +1,37 @@
+---
+# Ensure services for Azure Linux Agent are started
+- name: Enable and start Azure Linux Agent
+  ansible.builtin.service:
+    name: waagent.service
+    state: started
+    enabled: true
+  when:
+    - ansible_facts['virtualization_type'] != "docker"
+
+# Configure Azure Linux Agent
+- name: Azure Linux Client - Disable provision agent
+  ansible.builtin.lineinfile:
+    path: /etc/selinux/config
+    regexp: "Provisioning.Agent=auto"
+    line: Provisioning.Agent=disabled
+  notify: Restart Azure Linux Client
+  when:
+    - ansible_facts['virtualization_type'] != "docker"
+
+- name: Azure Linux Client - Disable format resource disk
+  ansible.builtin.lineinfile:
+    path: /etc/selinux/config
+    regexp: "ResourceDisk.Format=y"
+    line: ResourceDisk.Format=n
+  notify: Restart Azure Linux Client
+  when:
+    - ansible_facts['virtualization_type'] != "docker"
+
+- name: Azure Linux Client - Disable swap on resource disk
+  ansible.builtin.lineinfile:
+    path: /etc/selinux/config
+    regexp: "ResourceDisk.EnableSwap=y"
+    line: ResourceDisk.EnableSwap=n
+  notify: Restart Azure Linux Client
+  when:
+    - ansible_facts['virtualization_type'] != "docker"

@@ -1,0 +1,38 @@
+---
+# Set ANF parameters
+- name: Set ANF parameters
+  ansible.builtin.copy:
+    src: sysctl.d/91-NetApp-HANA.conf
+    dest: /etc/sysctl.d/91-NetApp-HANA.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: Reload kernel parameters
+
+- name: Set default NFSv4 domain
+  ansible.builtin.copy:
+    src: netapp/idmapd.conf
+    dest: /etc/idmapd.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Disable NFSv4 ID mapping
+  ansible.builtin.copy:
+    src: netapp/nfs.conf
+    dest: /etc/modprobe.d/nfs.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Optimize RPC settings
+  ansible.builtin.blockinfile:
+    backup: false
+    create: true
+    path: /etc/modprobe.d/sunrpc.conf
+    block: |
+      # Optimize RPC settings
+      options sunrpc tcp_max_slot_table_entries=128
+    owner: root
+    group: root
+    mode: 0644

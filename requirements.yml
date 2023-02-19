@@ -1,0 +1,8 @@
+---
+# Required roles and collections
+roles:
+  - name: thbe.common
+
+collections:
+  - name: ansible.posix
+  - name: community.general
