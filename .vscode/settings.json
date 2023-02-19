@@ -11,6 +11,7 @@
         "fileglob",
         "gdisk",
         "github",
+        "gpgkeys",
         "growpart",
         "HANA",
         "hostvars",

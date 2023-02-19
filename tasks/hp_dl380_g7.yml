@@ -1,4 +1,14 @@
 ---
+# Import HPs GPG keys
+- name: Import rpm keys for HP signed packages
+  ansible.builtin.rpm_key:
+    state: present
+    key: "{{ item }}"
+  with_items: "{{ hp_dl380_g7_gpgkeys }}"
+  when:
+    - ansible_facts['os_family'] == "RedHat"
+    - ansible_facts['distribution_major_version']|int >= 8
+
 # Install HP ProLiant DL380 G7 server management tools
 - name: Installation of HP ProLiant DL380 G7 packages for RHEL and clones for major release 8 and above
   ansible.builtin.dnf:
