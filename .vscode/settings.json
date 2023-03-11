@@ -9,6 +9,7 @@
         "blockinfile",
         "boto",
         "CMDLINE",
+        "earlyprintk",
         "fileglob",
         "gdisk",
         "github",
@@ -34,9 +35,11 @@
         "rolename",
         "rootdelay",
         "rpms",
+        "scexe",
         "ssacli",
         "sunrpc",
         "sysconfig",
-        "thbe"
+        "thbe",
+        "waagent"
     ]
 }

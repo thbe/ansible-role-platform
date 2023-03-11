@@ -22,12 +22,16 @@
 - name: Deploy Microsoft Azure agent support
   ansible.builtin.import_tasks: azure-agent.yml
   when:
+    - (ansible_facts['virtualization_type'] != "container") and
+      (ansible_facts['virtualization_type'] != "docker")
     - ansible_facts['system_vendor'] == "Microsoft Corporation"
     - ansible_facts['product_name'] == "Virtual Machine"
 
 - name: Deploy Microsoft Azure boot support
   ansible.builtin.import_tasks: azure-boot.yml
   when:
+    - (ansible_facts['virtualization_type'] != "container") and
+      (ansible_facts['virtualization_type'] != "docker")
     - ansible_facts['system_vendor'] == "Microsoft Corporation"
     - ansible_facts['product_name'] == "Virtual Machine"
 
