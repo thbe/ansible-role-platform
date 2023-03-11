@@ -18,3 +18,5 @@ galaxy_info:
     - hardware
     - azure
     - rhel
+    - rockylinux
+    - almalinux
