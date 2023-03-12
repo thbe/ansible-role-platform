@@ -1,6 +1,6 @@
 # Ansible Role thbe-platform
 
-[![Ansible Lint](https://github.com/thbe/ansible-role-platform/actions/workflows/ansible-lint.yml/badge.svg)](https://github.com/thbe/ansible-role-platform/actions/workflows/ansible-lint.yml)[![Molecule](https://github.com/thbe/ansible-role-platform/actions/workflows/molecule.yml/badge.svg)](https://github.com/thbe/ansible-role-platform/actions/workflows/molecule.yml)
+[![Molecule](https://github.com/thbe/ansible-role-platform/actions/workflows/molecule.yml/badge.svg)](https://github.com/thbe/ansible-role-platform/actions/workflows/molecule.yml)
 
 This role configures and deploys hardware/ platform settings on an RHEL instance or RHEL clone.
 
