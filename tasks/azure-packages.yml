@@ -10,6 +10,8 @@
       - WALinuxAgent
     state: present
   when:
+    - (ansible_facts['virtualization_type'] != "container") and
+      (ansible_facts['virtualization_type'] != "docker")
     - ansible_facts['distribution'] == "RedHat"
     - ansible_facts['distribution_major_version']|int >= 8
 
