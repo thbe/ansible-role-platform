@@ -8,10 +8,10 @@ driver:
   name: docker
 platforms:
   - name: Redhat-8
-    image: registry.access.redhat.com/ubi8/ubi-init
+    image: docker.io/redhat/ubi8:latest
     pre_build_image: true
   - name: Redhat-9
-    image: registry.access.redhat.com/ubi9/ubi-init
+    image: docker.io/redhat/ubi9:latest
     pre_build_image: true
   - name: RockyLinux-8
     image: docker.io/rockylinux:8
