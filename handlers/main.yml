@@ -6,7 +6,15 @@
     state: restarted
 
 - name: Rebuild Grub
-  ansible.builtin.command: "grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg"
+  ansible.builtin.command:
+    cmd: "grub2-mkconfig -o /boot/efi/EFI/redhat/grub.cfg"
+  register: rebuild_grub
+  changed_when: false
+  failed_when: rebuild_grub.rc != 0
 
 - name: Reload kernel parameters
-  ansible.builtin.command: "sysctl -p"
+  ansible.builtin.command:
+    cmd: "sysctl -p"
+  register: reload_kernel_parameters
+  changed_when: false
+  failed_when: reload_kernel_parameters.rc != 0
