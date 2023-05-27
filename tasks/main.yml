@@ -3,19 +3,26 @@
 - name: Create platform folder structure
   ansible.builtin.import_tasks: folder.yml
 
-- name: Deploy hardware support
-  ansible.builtin.import_tasks: hardware.yml
+- name: Deploy support for physical systems
+  ansible.builtin.import_tasks: physical.yml
   when:
     - ansible_facts['virtualization_role'] == "host"
+
+- name: Deploy support for virtual systems
+  ansible.builtin.import_tasks: virtual.yml
+  when:
+    - ansible_facts['virtualization_role'] == "guest"
 
 - name: Deploy HP ProLiant DL380 G7 support
   ansible.builtin.import_tasks: hp_dl380_g7.yml
   when:
+    - ansible_facts['virtualization_role'] == "host"
     - ansible_facts['product_name'] == "ProLiant DL380 G7"
 
 - name: Deploy Microsoft Azure packages
   ansible.builtin.import_tasks: azure-packages.yml
   when:
+    - ansible_facts['virtualization_role'] == "guest"
     - ansible_facts['system_vendor'] == "Microsoft Corporation"
     - ansible_facts['product_name'] == "Virtual Machine"
 
@@ -24,6 +31,7 @@
   when:
     - (ansible_facts['virtualization_type'] != "container") and
       (ansible_facts['virtualization_type'] != "docker")
+    - ansible_facts['virtualization_role'] == "guest"
     - ansible_facts['system_vendor'] == "Microsoft Corporation"
     - ansible_facts['product_name'] == "Virtual Machine"
 
@@ -32,24 +40,28 @@
   when:
     - (ansible_facts['virtualization_type'] != "container") and
       (ansible_facts['virtualization_type'] != "docker")
+    - ansible_facts['virtualization_role'] == "guest"
     - ansible_facts['system_vendor'] == "Microsoft Corporation"
     - ansible_facts['product_name'] == "Virtual Machine"
 
 - name: Deploy Microsoft Azure swap support
   ansible.builtin.import_tasks: azure-swap.yml
   when:
+    - ansible_facts['virtualization_role'] == "guest"
     - ansible_facts['system_vendor'] == "Microsoft Corporation"
     - ansible_facts['product_name'] == "Virtual Machine"
 
 - name: Deploy Microsoft Azure AzCopy tool
   ansible.builtin.import_tasks: azure-azcopy.yml
   when:
+    - ansible_facts['virtualization_role'] == "guest"
     - ansible_facts['system_vendor'] == "Microsoft Corporation"
     - ansible_facts['product_name'] == "Virtual Machine"
 
 - name: Deploy Microsoft Azure NetApp support
   ansible.builtin.import_tasks: azure-netapp.yml
   when:
+    - ansible_facts['virtualization_role'] == "guest"
     - ansible_facts['system_vendor'] == "Microsoft Corporation"
     - ansible_facts['product_name'] == "Virtual Machine"
     - anf_storage
@@ -57,6 +69,7 @@
 - name: Deploy Microsoft Azure AzAcSnap tool
   ansible.builtin.import_tasks: azure-azacsnap.yml
   when:
+    - ansible_facts['virtualization_role'] == "guest"
     - ansible_facts['system_vendor'] == "Microsoft Corporation"
     - ansible_facts['product_name'] == "Virtual Machine"
     - anf_storage

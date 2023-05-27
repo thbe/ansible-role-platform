@@ -1,6 +1,6 @@
 ---
-# Add hardware related tools
-- name: Installation of base packages for RHEL and clones for major release 8 and above
+# Add physical host related tools
+- name: Installation of physical host tools
   ansible.builtin.dnf:
     name:
       - dmidecode

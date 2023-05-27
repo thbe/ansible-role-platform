@@ -1,0 +1,10 @@
+---
+# Add virtual guest related tools
+- name: Installation of virtual guest tools
+  ansible.builtin.dnf:
+    name:
+      - cloud-init
+    state: present
+  when:
+    - ansible_facts['os_family'] == "RedHat"
+    - ansible_facts['distribution_major_version']|int >= 8
