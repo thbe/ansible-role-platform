@@ -8,16 +8,16 @@
   when:
     - ansible_facts['virtualization_role'] == "host"
 
-- name: Deploy support for virtual systems
-  ansible.builtin.import_tasks: virtual.yml
-  when:
-    - ansible_facts['virtualization_role'] == "guest"
-
 - name: Deploy HP ProLiant DL380 G7 support
   ansible.builtin.import_tasks: hp_dl380_g7.yml
   when:
     - ansible_facts['virtualization_role'] == "host"
     - ansible_facts['product_name'] == "ProLiant DL380 G7"
+
+- name: Deploy support for virtual systems
+  ansible.builtin.import_tasks: virtual.yml
+  when:
+    - ansible_facts['virtualization_role'] == "guest"
 
 - name: Deploy Microsoft Azure packages
   ansible.builtin.import_tasks: azure-packages.yml
